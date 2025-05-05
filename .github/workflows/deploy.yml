@@ -41,6 +41,8 @@ jobs:
     - name: Deploy to GKE
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE
+        kubectl apply -f k8s/web-deployment.yaml
+        kubectl apply -f k8s/storage-statefulset.yaml
         kubectl set image deployment/web-deployment web=$IMAGE_NAME_WEB:$GITHUB_SHA
         kubectl set image deployment/storage storage=$IMAGE_NAME_STORAGE:$GITHUB_SHA
         kubectl rollout status deployment/web-deployment
