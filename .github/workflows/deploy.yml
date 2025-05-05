@@ -7,6 +7,11 @@ on:
 
 env:
   PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+  GKE_CLUSTER: ${{ vars.GKE_CLUSTER_NAME }}
+  GKE_ZONE: ${{ vars.GKE_ZONE }}
+  IMAGE_NAME_WEB: gcr.io/${{ vars.GCP_PROJECT_ID }}/web
+  IMAGE_NAME_STORAGE: gcr.io/${{ vars.GCP_PROJECT_ID }}/storage
+
 
 jobs:
   deploy:
@@ -36,3 +41,7 @@ jobs:
     - name: Deploy to GKE
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE
+        kubectl set image deployment/web-deployment web=$IMAGE_NAME_WEB:$GITHUB_SHA
+        kubectl set image deployment/storage-deployment storage=$IMAGE_NAME_STORAGE:$GITHUB_SHA
+        kubectl rollout status deployment/web-deployment
+        kubectl rollout status deployment/storage-deployment
