@@ -6,11 +6,11 @@ on:
       - main
 
 env:
-  PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
-  GKE_CLUSTER: ${{ vars.GKE_CLUSTER_NAME }}
-  GKE_ZONE: ${{ vars.GKE_ZONE }}
-  IMAGE_NAME_WEB: gcr.io/${{ vars.GCP_PROJECT_ID }}/web
-  IMAGE_NAME_STORAGE: gcr.io/${{ vars.GCP_PROJECT_ID }}/storage
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
+  GKE_ZONE: ${{ secrets.GKE_ZONE }}
+  IMAGE_NAME_WEB: gcr.io/${{ secrets.GCP_PROJECT_ID }}/web
+  IMAGE_NAME_STORAGE: gcr.io/${{ sercrets.GCP_PROJECT_ID }}/storage
 
 
 jobs:
