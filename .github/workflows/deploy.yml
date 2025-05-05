@@ -44,6 +44,6 @@ jobs:
         kubectl apply -f k8s/web-deployment.yaml
         kubectl apply -f k8s/storage-statefulset.yaml
         kubectl set image deployment/web-deployment web=$IMAGE_NAME_WEB:$GITHUB_SHA
-        kubectl set image deployment/storage storage=$IMAGE_NAME_STORAGE:$GITHUB_SHA
+        kubectl set image statefulset/storage storage=$IMAGE_NAME_STORAGE:$GITHUB_SHA
         kubectl rollout status deployment/web-deployment
-        kubectl rollout status deployment/storage
+        kubectl rollout status statefulset/storage
